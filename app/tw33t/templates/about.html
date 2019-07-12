@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<main role="main" class="inner cover">
+  <p class="lead">This website is created by Lukas Drukteinis, as a task for company "CubiCasa", to learn the the context of their product. </p>
+</main>
+
+{% endblock %}
+
+{% block scripts %}
+
+  <!-- Plugin Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    var app = new Vue({
+      el: "#app",
+      delimiters: ["[[", "]]"],
+      data: {
+        message: "Hello Vue!",
+        username: "",
+        pageType: false
+      }
+    })
+  </script>
+
+{% endblock %}
