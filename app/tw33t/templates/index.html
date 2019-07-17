@@ -4,26 +4,27 @@
 
   <main role="main" class="inner cover">
     <h1 class="cover-heading">This is the Twitter tool</h1>
-    {{ message }}
-    <p class="lead">This is a Twitter tool for user tweets!</p>
+    <p class="lead">Enter an username and get its 3 last tweets</p>
   </main>
 
-  <div class="form-group" id="app">
-      <input v-model="username" type="text" class="form-control" placeholder="Username">
+  <div class="form" id="app">
+    <form>
+      <input v-model="handle" type="text" class="form-control" placeholder="Username">
       &nbsp
       <p class="lead">
-          <button type="button" class="btn btn-secondary btn-lg" >Get tweets</button>
+          <button type="button" class="btn btn-secondary btn-lg" v-on:click="getTweets(this.handle)" >Get tweets</button>
       </p>
-      
-      <p>[[message]]</p>
-      <p>get_tweets("pony")</p> 
+    </form>
+      <ul></ul>
+      <li v-for="tweet in tweets">
+        [[ tweet.text ]]
+      </li>
   </div>
 
 {% endblock %}
 
 {% block scripts %}
 
-  <!-- Plugin Vue.js -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
   <script>
@@ -34,8 +35,33 @@
         message: "Hello Vue!",
         username: "",
         pageType: true
+      },
+      methods: {
+        getTweets: function (event) {
+          let self = this;
+          const url = '/get-tweets('+this.handle+')';
+          fetch(url)
+            .then(
+              function(response) {
+                if (response.status !== 200) {
+                  console.log('Looks like there was a problem. Status Code: ' + response.status);
+                  return;
+                }
+
+                // Examine the text in the response
+                response.json().then(function(data) {
+                  self.tweets = data
+                  console.log(data);
+                });
+              }
+            )
+            .catch(function(err) {
+              console.log('Fetch Error :-S', err);
+            });
+          }
       }
-    })
+    });
+
   </script>
 
 {% endblock %}

@@ -8,6 +8,12 @@ import json, requests, datetime, sys, os, uuid, re, time
 import tweepy
 from jinja2 import TemplateNotFound
 
+consumer_key = "Ux2iOJHTSL8wt50zN5mm1SFQ4" 
+consumer_secret = "B9nUZKjqHSuFD1BBLvVMIc9EdGE6teAmAVByyQ9wdMR30GJSRY"
+access_key = "171626809-0yyB0z2IMEIsFz7Ao3zWSllocnin25b8C2wy7iRJ"
+access_secret = "HW0A6zzBjc018o5SnYfVMmlZvwFeWctnFDA6unnwccin9"
+
+
 @app.route("/", methods=['GET'])
 def index():
     return render_template('index.html', tweets = get_tweets)
@@ -26,14 +32,9 @@ def features():
     except TemplateNotFound:
         abort(404)
 
-consumer_key = "Ux2iOJHTSL8wt50zN5mm1SFQ4" 
-consumer_secret = "B9nUZKjqHSuFD1BBLvVMIc9EdGE6teAmAVByyQ9wdMR30GJSRY"
-access_key = "171626809-0yyB0z2IMEIsFz7Ao3zWSllocnin25b8C2wy7iRJ"
-access_secret = "HW0A6zzBjc018o5SnYfVMmlZvwFeWctnFDA6unnwccin9"
-
+@app.route("/get-tweets")
 def get_tweets(username): 
-          
-        
+    
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret) 
   
         
@@ -64,6 +65,9 @@ def get_tweets(username):
 if __name__ == '__main__': 
   
     get_tweets("twitter-handle")
+
+
+
 
 '''
 
