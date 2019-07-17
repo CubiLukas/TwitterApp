@@ -39,7 +39,7 @@
       methods: {
         getTweets: function (event) {
           let self = this;
-          const url = '/get-tweets('+this.handle+')';
+          const url = '/get-tweets?username='+this.handle;
           fetch(url)
             .then(
               function(response) {

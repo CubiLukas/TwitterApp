@@ -32,9 +32,10 @@ def features():
     except TemplateNotFound:
         abort(404)
 
-@app.route("/get-tweets")
-def get_tweets(username): 
-    
+@app.route("/get-tweets", methods=['GET', 'POST'])
+def get_tweets(): 
+
+        username = request.args.get('username')
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret) 
   
         
